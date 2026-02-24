@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waltrudes Neto — Ginecologia e Obstetrícia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --cor-fundo:      #5b2d8e;
+      --cor-fundo2:     #3d1d6b;
+      --cor-card:       rgba(255,255,255,0.10);
+      --cor-card-hover: rgba(255,255,255,0.18);
+      --cor-borda:      rgba(255,255,255,0.18);
+      --cor-titulo:     #ffffff;
+      --cor-texto:      rgba(255,255,255,0.80);
+      --cor-google-bg:  rgba(255,255,255,0.15);
+      --fonte-titulo:   'Montserrat', sans-serif;
+      --fonte-corpo:    'Lato', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(160deg, var(--cor-fundo) 0%, var(--cor-fundo2) 100%);
+      min-height: 100vh;
+      font-family: var(--fonte-corpo);
+      overflow-x: hidden;
+    }
+
+    /* =============================================
+       KEYFRAMES
+    ============================================= */
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes entradaRodape {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes entradaBtn {
+      from { opacity: 0; transform: translateX(-40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes entradaTexto {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes estouraIcone {
+      0%   { opacity: 0; transform: scale(0); }
+      60%  { opacity: 1; transform: scale(1.3); }
+      80%  { transform: scale(0.88); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes entradaGoogleIcone {
+      0%   { opacity: 0; transform: scale(0); }
+      60%  { opacity: 1; transform: scale(1.15); }
+      80%  { transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes pulso {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.30); }
+      50%       { box-shadow: 0 0 0 12px rgba(255,255,255,0); }
+    }
+
+    /* =============================================
+       HEADER
+    ============================================= */
+    header {
+      position: relative;
+      width: 100%;
+      min-height: 60vw;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    header .header-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 0;
+      animation: fadeIn 1.5s ease forwards;
+      display: none;
+    }
+
+    header .gradiente {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0) 0%,
+        rgba(91,45,142,0.7) 50%,
+        rgba(61,29,107,1) 100%
+      );
+      z-index: 1;
+    }
+
+    header .header-conteudo {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10vw 6vw 8vw;
+      text-align: center;
+      animation: fadeDown 1s ease 0.3s both;
+    }
+
+    .logo {
+      width: 28vw;
+      height: 28vw;
+      border-radius: 50%;
+      border: 0.8vw solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.12);
+      margin-bottom: 5vw;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 0;
+      padding: 5vw;
+    }
+
+    .logo .logo-placeholder {
+      font-size: 10vw;
+      color: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    header .header-texto h1 {
+      font-family: var(--fonte-titulo);
+      color: var(--cor-titulo);
+      font-size: 6vw;
+      font-weight: 700;
+      letter-spacing: 0.1vw;
+      line-height: 1.2;
+      margin-bottom: 1.5vw;
+    }
+
+    header .header-texto p {
+      color: var(--cor-texto);
+      font-size: 3vw;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.4vw;
+    }
+
+    /* =============================================
+       MAIN
+    ============================================= */
+    main {
+      width: 85%;
+      margin: 0 auto;
+      padding: 4vw 0 6vw;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5vw;
+    }
+
+    /* =============================================
+       ESTADOS INICIAIS — JS anima
+    ============================================= */
+    .btn-link,
+    .btn-google { opacity: 0; }
+
+    .btn-link .btn-texto,
+    .btn-google .google-topo { opacity: 0; }
+
+    .btn-link .icone { opacity: 0; transform: scale(0); }
+
+    .btn-google .google-img-wrap { opacity: 0; transform: scale(0); }
+
+    .btn-google .google-texto-grande { opacity: 0; transform: translateX(30px); }
+
+    footer { opacity: 0; }
+
+    /* =============================================
+       CLASSES ATIVAS — JS
+    ============================================= */
+    .btn-link.anima-btn,
+    .btn-google.anima-btn { animation: entradaBtn 0.45s ease forwards; }
+
+    .btn-link.anima-texto .btn-texto,
+    .btn-google.anima-texto .google-topo { animation: entradaTexto 0.45s ease forwards; }
+
+    /* texto grande entra da direita junto com topo */
+    .btn-google.anima-texto .google-texto-grande { animation: entradaTexto 0.45s ease forwards; }
+
+    .btn-link.anima-icone .icone {
+      animation: estouraIcone 0.5s cubic-bezier(0.34, 1.6, 0.64, 1) forwards;
+    }
+
+    .btn-google.anima-icone .google-img-wrap {
+      animation: entradaGoogleIcone 0.6s cubic-bezier(0.34, 1.6, 0.64, 1) forwards;
+    }
+
+    footer.anima-rodape { animation: entradaRodape 0.6s ease forwards; }
+
+    /* =============================================
+       PULSO
+    ============================================= */
+    #btn-whatsapp.pulso-ativo { animation: pulso 2.5s ease infinite; }
+    .btn-google.pulso-ativo   { animation: pulso 2.5s ease infinite; }
+
+    /* =============================================
+       BOTÕES DE LINK — estilo
+    ============================================= */
+    .btn-link {
+      display: flex;
+      align-items: center;
+      gap: 4vw;
+      background: var(--cor-card);
+      border: 0.2vw solid var(--cor-borda);
+      border-radius: 3vw;
+      padding: 3.5vw 5vw;
+      text-decoration: none;
+      color: var(--cor-titulo);
+      font-family: var(--fonte-titulo);
+      font-size: 3.8vw;
+      font-weight: 600;
+      letter-spacing: 0.15vw;
+      text-transform: uppercase;
+      transition: background 0.3s, border-color 0.3s;
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-link:hover  { background: var(--cor-card-hover); border-color: rgba(255,255,255,0.4); }
+    .btn-link:active { transform: scale(0.98); }
+
+    .btn-link .icone {
+      width: 10vw;
+      height: 10vw;
+      min-width: 10vw;
+      border-radius: 50%;
+      border: 0.3vw solid rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5vw;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* =============================================
+       BOTÃO GOOGLE — layout elaborado
+       
+       Estrutura:
+       ┌─────────────────────────────────────┐
+       │ ★★★★★          [  G  ]             │
+       │ clique aqui e deixe sua avaliação   │
+       ├─────────────────────────────────────┤
+       │ AVALIE NO GOOGLE (ponta a ponta)    │
+       └─────────────────────────────────────┘
+    ============================================= */
+    .btn-google {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2vw;
+      background: var(--cor-google-bg);
+      border: 0.2vw solid rgba(255,255,255,0.35);
+      border-radius: 3vw;
+      padding: 4vw 5vw;
+      text-decoration: none;
+      color: var(--cor-titulo);
+      font-family: var(--fonte-titulo);
+      text-transform: uppercase;
+      letter-spacing: 0.2vw;
+      transition: background 0.3s;
+      backdrop-filter: blur(4px);
+      grid-column: 1 / -1;
+    }
+
+    .btn-google:hover  { background: rgba(255,255,255,0.22); }
+    .btn-google:active { transform: scale(0.98); }
+
+    /* Linha do topo: estrelas + texto pequeno */
+    .btn-google .google-topo {
+      display: flex;
+      flex-direction: column;
+      gap: 1vw;
+      /* espaço direito para a imagem não sobrepor */
+      padding-right: 22vw;
+    }
+
+    .btn-google .estrelas {
+      display: flex;
+      gap: 1vw;
+      font-size: 2vw;
+      color: #fff;
+    }
+
+    .btn-google .google-texto-pequeno {
+      font-size: 2.8vw;
+      font-weight: 400;
+      opacity: 0.85;
+      text-transform: none;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    /* Imagem G — absoluta, canto superior direito */
+    .btn-google .google-img-wrap {
+      position: absolute;
+      bottom: calc(1lh + 2vw + 2vw); /* altura do texto-grande + gap + padding */
+  right: 3vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-google .google-img-wrap img {
+      width: 18vw;
+      height: auto;
+      display: block;
+    }
+
+    .btn-google .google-icone-fa {
+      font-size: 14vw;
+      color: #fff;
+    }
+
+    /* Texto grande — base do botão, ponta a ponta */
+    .btn-google .google-texto-grande {
+      font-size: 8vw;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1;
+      white-space: nowrap;
+      width: 100%;
+      text-align: left;
+        box-sizing: border-box;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      width: 85%;
+      margin: 0 auto;
+      padding: 4vw 0 8vw;
+      text-align: center;
+      border-top: 0.1vw solid rgba(255,255,255,0.15);
+    }
+
+    footer .footer-icones {
+      display: flex;
+      justify-content: center;
+      gap: 5vw;
+      margin-bottom: 2.5vw;
+    }
+
+    footer .footer-icones a {
+      color: rgba(255,255,255,0.5);
+      font-size: 5.5vw;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer .footer-icones a:hover { color: #ffffff; }
+    footer p { color: rgba(255,255,255,0.4); font-size: 2.5vw; line-height: 1.8; }
+    footer a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: #ffffff; }
+
+    /* =============================================
+       BREAKPOINT 600px
+    ============================================= */
+    @media (min-width: 600px) {
+      header { min-height: 40vw; }
+      .logo { width: 20vw; height: 20vw; border-width: 0.5vw; }
+      .logo img { padding: 3vw; }
+      .logo .logo-placeholder { font-size: 8vw; }
+      header .header-texto h1 { font-size: 4.5vw; }
+      header .header-texto p  { font-size: 2vw; }
+      main   { width: 70%; gap: 2.5vw; }
+      footer { width: 70%; }
+      .btn-link { font-size: 2.5vw; padding: 2.5vw 4vw; border-radius: 2vw; gap: 3vw; }
+      .btn-link .icone { width: 7vw; height: 7vw; min-width: 7vw; font-size: 3vw; }
+      .btn-google { border-radius: 2vw; padding: 3vw 4vw; gap: 1.5vw; }
+      .btn-google .google-topo { padding-right: 16vw; gap: 0.8vw; }
+      .btn-google .estrelas { font-size: 3.5vw; }
+      .btn-google .google-texto-pequeno { font-size: 2vw; }
+      .btn-google .google-texto-grande  { font-size: 6vw; }
+      .btn-google .google-img-wrap { top: 2vw; right: 2vw; }
+      .btn-google .google-img-wrap img  { width: 13vw; }
+      .btn-google .google-icone-fa { font-size: 11vw; }
+      footer .footer-icones a { font-size: 3.5vw; }
+      footer p { font-size: 1.8vw; }
+    }
+
+    /* =============================================
+       BREAKPOINT 900px — desktop 2 colunas
+       Google: 1 coluna centralizado, mesmo layout
+    ============================================= */
+    @media (min-width: 900px) {
+      header { min-height: 30vw; }
+      header .header-conteudo { flex-direction: row; justify-content: center; gap: 3vw; padding: 6vw 4vw 5vw; text-align: left; }
+      .logo { width: 12vw; height: 12vw; border-width: 0.3vw; margin-bottom: 0; }
+      .logo img { padding: 1.5vw; }
+      .logo .logo-placeholder { font-size: 5vw; }
+      header .header-texto h1 { font-size: 2.8vw; margin-bottom: 0.8vw; }
+      header .header-texto p  { font-size: 1.1vw; }
+
+      main { width: 60%; grid-template-columns: 1fr 1fr; gap: 1.5vw; padding: 3vw 0 4vw; }
+      footer { width: 60%; }
+
+      .btn-link { font-size: 1.2vw; padding: 1.5vw 2vw; border-radius: 1vw; gap: 1.5vw; }
+      .btn-link .icone { width: 4vw; height: 4vw; min-width: 4vw; font-size: 1.6vw; border-width: 0.15vw; }
+
+      /* Google — 1 coluna centralizado */
+      .btn-google {
+        grid-column: 1 / 2;        /* ocupa 1 coluna */
+        justify-self: center;      /* centraliza no grid */
+        width: 100%;
+        border-radius: 1vw;
+        padding: 2vw 2.5vw;
+        gap: 1vw;
+        /* SEM pulso no desktop */
+        animation: none !important;
+      }
+
+      .btn-google.pulso-ativo { animation: none !important; }
+
+      .btn-google .google-topo { padding-right: 8vw; gap: 0.5vw; }
+      .btn-google .estrelas { font-size: 1.8vw; gap: 0.3vw; }
+      .btn-google .google-texto-pequeno { font-size: 1vw; }
+      .btn-google .google-texto-grande  { font-size: 3vw; }
+      .btn-google .google-img-wrap { top: 1.5vw; right: 1.5vw; }
+      .btn-google .google-img-wrap img  { width: 6vw; }
+      .btn-google .google-icone-fa { font-size: 5vw; }
+
+      footer .footer-icones a { font-size: 2vw; }
+      footer p { font-size: 1vw; }
+    }
+
+    /* =============================================
+       BREAKPOINT 1200px — trava crescimento
+    ============================================= */
+    @media (min-width: 1200px) {
+      header .header-conteudo { width: 820px; padding: 60px 0 50px; }
+      .logo { width: 130px; height: 130px; border-width: 3px; }
+      .logo img { padding: 14px; }
+      .logo .logo-placeholder { font-size: 50px; }
+      header .header-texto h1 { font-size: 2rem; margin-bottom: 8px; }
+      header .header-texto p  { font-size: 0.85rem; }
+
+      main   { width: 820px; grid-template-columns: 1fr 1fr; gap: 16px; padding: 30px 0 40px; }
+      footer { width: 820px; }
+
+      .btn-link { font-size: 0.9rem; padding: 16px 20px; border-radius: 12px; gap: 14px; border-width: 1px; }
+      .btn-link .icone { width: 44px; height: 44px; min-width: 44px; font-size: 1.1rem; border-width: 1px; }
+
+      .btn-google { border-radius: 12px; padding: 20px 24px; gap: 10px; border-width: 1px; }
+      .btn-google .google-topo { padding-right: 80px; gap: 6px; }
+      .btn-google .estrelas { font-size: 1.1rem; gap: 3px; }
+      .btn-google .google-texto-pequeno { font-size: 0.8rem; }
+      .btn-google .google-texto-grande  { font-size: 2rem; }
+      .btn-google .google-img-wrap { top: 16px; right: 16px; }
+      .btn-google .google-img-wrap img  { width: 64px; }
+      .btn-google .google-icone-fa { font-size: 3rem; }
+
+      footer .footer-icones a { font-size: 1.4rem; }
+      footer p { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img class="header-bg" src="bg_saude.png" alt="Foto do médico">
+    <div class="gradiente"></div>
+    <div class="header-conteudo">
+      <div class="logo">
+        <img src="logo_w.png" alt="Logo">
+        <!-- <span class="logo-placeholder"><i class="fa-solid fa-user-doctor"></i></span> -->
+      </div>
+      <div class="header-texto">
+        <h1>Waltrudes Neto</h1>
+        <p>Ginecologia e Obstetrícia</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- WHATSAPP -->
+    <a href="agendar.html" class="btn-link" id="btn-whatsapp" aria-label="Agendar Consulta via WhatsApp">
+      <span class="icone"><i class="fa-brands fa-whatsapp"></i></span>
+      <span class="btn-texto">Agendar Consulta</span>
+    </a>
+
+    <!-- COMO CHEGAR -->
+    <a href="chegar.html" class="btn-link" id="btn-chegar" aria-label="Como Chegar">
+      <span class="icone"><i class="fa-solid fa-location-dot"></i></span>
+      <span class="btn-texto">Como Chegar</span>
+    </a>
+
+    <!-- SITE -->
+    <a href="#" class="btn-link" id="btn-site" aria-label="Nosso Site">
+      <span class="icone"><i class="fa-solid fa-globe"></i></span>
+      <span class="btn-texto">Nosso Site</span>
+    </a>
+
+    <!-- INSTAGRAM -->
+    <a href="#" class="btn-link" id="btn-instagram" aria-label="Nosso Instagram">
+      <span class="icone"><i class="fa-brands fa-instagram"></i></span>
+      <span class="btn-texto">Nosso Instagram</span>
+    </a>
+
+    <!-- AVALIAÇÃO GOOGLE -->
+    <a href="#" class="btn-google" id="btn-google" aria-label="Avalie no Google">
+      <!-- Topo: estrelas + clique aqui (com espaço para a imagem) -->
+      <div class="google-topo">
+        <div class="estrelas">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <p class="google-texto-pequeno">Clique aqui e deixe sua avaliação</p>
+      </div>
+      <!-- Imagem G — absoluta, canto superior direito -->
+      <div class="google-img-wrap">
+        <img src="img_google.svg" alt="Google"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <i class="fa-brands fa-google google-icone-fa" style="display:none"></i>
+      </div>
+      <!-- Texto grande — base do botão -->
+      <p class="google-texto-grande">Avalie no Google</p>
+    </a>
+
+  </main>
+
+  <footer>
+    <div class="footer-icones">
+      <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Site"><i class="fa-solid fa-globe"></i></a>
+    </div>
+    <p>Desenvolvido por: <a href="#">rpStudio</a></p>
+    <p>Quer uma página como essa ou um serviço especializado de assessoria e marketing?<br>
+      <a href="#">Visite-nos através dos links acima</a></p>
+  </footer>
+
+  <script>
+    const whats    = document.getElementById('btn-whatsapp');
+    const chegar   = document.getElementById('btn-chegar');
+    const site     = document.getElementById('btn-site');
+    const insta    = document.getElementById('btn-instagram');
+    const google   = document.getElementById('btn-google');
+    const rodape   = document.querySelector('footer');
+
+    const DUR_BTN          = 450;
+    const DUR_GOOGLE_ICONE = 600;
+    const INTERVALO        = 180;
+
+    function adicionaClasse(el, cls, delay) {
+      setTimeout(() => el.classList.add(cls), delay);
+    }
+
+    const botoes = [whats, chegar, site, insta];
+    botoes.forEach((btn, i) => {
+      const t = i * INTERVALO;
+      adicionaClasse(btn, 'anima-btn',   t);
+      adicionaClasse(btn, 'anima-texto', t);
+    });
+
+    const tGoogle = botoes.length * INTERVALO;
+    adicionaClasse(google, 'anima-btn',   tGoogle);
+    adicionaClasse(google, 'anima-texto', tGoogle);
+
+    const tGoogleIcone = tGoogle + DUR_BTN + 50;
+    adicionaClasse(google, 'anima-icone', tGoogleIcone);
+
+    const tFase2 = tGoogleIcone + DUR_GOOGLE_ICONE;
+    adicionaClasse(whats,  'anima-icone', tFase2);
+    adicionaClasse(chegar, 'anima-icone', tFase2 + 150);
+    adicionaClasse(site,   'anima-icone', tFase2 + 300);
+    adicionaClasse(insta,  'anima-icone', tFase2 + 450);
+    adicionaClasse(rodape, 'anima-rodape', tFase2 + 550);
+
+    const tFinal = tFase2 + 600;
+    setTimeout(() => {
+      [whats, chegar, site, insta, google].forEach(btn => {
+        btn.style.opacity   = '1';
+        btn.style.transform = 'none';
+        btn.style.animation = 'none';
+      });
+
+      document.querySelectorAll('.btn-texto, .google-topo, .google-texto-grande').forEach(el => {
+        el.style.opacity   = '1';
+        el.style.transform = 'none';
+        el.style.animation = 'none';
+      });
+
+      document.querySelectorAll('.btn-link .icone').forEach(el => {
+        el.style.opacity   = '1';
+        el.style.transform = 'scale(1)';
+        el.style.animation = 'none';
+      });
+
+      const gIcone = google.querySelector('.google-img-wrap');
+      if (gIcone) {
+        gIcone.style.opacity   = '1';
+        gIcone.style.transform = 'scale(1)';
+        gIcone.style.animation = 'none';
+      }
+
+      rodape.style.opacity   = '1';
+      rodape.style.transform = 'none';
+      rodape.style.animation = 'none';
+
+      setTimeout(() => {
+        whats.style.animation  = '';
+        google.style.animation = '';
+        whats.classList.add('pulso-ativo');
+        google.classList.add('pulso-ativo');
+      }, 80);
+    }, tFinal);
+  </script>
+
+</body>
+</html>

@@ -177,6 +177,7 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 5vw;
+        background-color: 
     }
 
     /* =============================================
@@ -232,9 +233,9 @@
       align-items: center;
       gap: 4vw;
       background: var(--cor-card);
-      border: 0.2vw solid var(--cor-borda);
-      border-radius: 3vw;
-      padding: 3.5vw 5vw;
+      border: none;
+      border-radius: 15vw;
+      padding: 2vw 5vw;
       text-decoration: none;
       color: var(--cor-titulo);
       font-family: var(--fonte-titulo);
@@ -282,7 +283,7 @@
       justify-content: space-between;
       gap: 2vw;
       background: var(--cor-google-bg);
-      border: 0.2vw solid rgba(255,255,255,0.35);
+      border: none;
       border-radius: 3vw;
       padding: 4vw 5vw;
       text-decoration: none;
@@ -346,14 +347,13 @@
 
     /* Texto grande — base do botão, ponta a ponta */
     .btn-google .google-texto-grande {
-      font-size: 8vw;
+    font-size: clamp(1rem, 6vw, 8vw);
       font-weight: 700;
       letter-spacing: 0;
       line-height: 1;
-      white-space: nowrap;
       width: 100%;
       text-align: left;
-        box-sizing: border-box;
+        box-sizing: border-box
     }
 
     /* =============================================
@@ -433,9 +433,9 @@
 
       /* Google — 1 coluna centralizado */
       .btn-google {
-        grid-column: 1 / 2;        /* ocupa 1 coluna */
+        grid-column: 1 / -1;        /* ocupa 1 coluna */
         justify-self: center;      /* centraliza no grid */
-        width: 100%;
+        width: 60%;
         border-radius: 1vw;
         padding: 2vw 2.5vw;
         gap: 1vw;
